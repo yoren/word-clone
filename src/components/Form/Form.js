@@ -1,12 +1,15 @@
 import React from "react";
 
-function Form({guess, setGuess}) {
+function Form({guess, setGuess, setGuessResults}) {
   const [ guessInput, setGuessInput ] = React.useState( "" );
 
   const onSubmitHandler = ( event ) => {
     event.preventDefault();
 
+    console.info({ guessInput });
+
     setGuess( guessInput );
+    setGuessResults( (currentResults) => { return [...currentResults, guessInput] } );
     setGuessInput('');
   };
 
