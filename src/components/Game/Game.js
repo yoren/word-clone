@@ -25,7 +25,7 @@ function Game() {
 
   return (
     <>
-      <GuessResults guessResults={guessResults} />
+      <GuessResults guessResults={guessResults} answer={answer} />
       <Form guess={guess} setGuess={setGuess} setGuessResults={setGuessResults} disabled={ guessResults.length>=NUM_OF_GUESSES_ALLOWED } />
     </>
   );
