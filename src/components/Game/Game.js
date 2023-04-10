@@ -4,7 +4,7 @@ import { sample } from '../../utils';
 import { WORDS } from '../../data';
 import Form from '../Form';
 import GuessResults from '../GuessResults';
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import Message from "../Message";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -14,19 +14,21 @@ console.info({ answer });
 function Game() {
   const [ guess, setGuess ] = React.useState( "" );
   const [ guessResults, setGuessResults ] = React.useState( [] );
+  const [ resultType, setResultType ] = React.useState( null );
 
   // React.useEffect(() => {
-  //   if ( guess ) {
-  //     // console.info({ guess });
-  //
-  //
+  //   if ( guess === answer ) {
+  //     setResultType( 'win' );
+  //   } else if ( guessResults.length >= NUM_OF_GUESSES_ALLOWED ) {
+  //     setResultType( 'lose' );
   //   }
-  // }, [guess]);
+  // }, [guess, guessResults]);
 
   return (
     <>
+      <Message resultType={resultType} answer={answer} guessResults={guessResults}></Message>
       <GuessResults guessResults={guessResults} answer={answer} />
-      <Form guess={guess} setGuess={setGuess} setGuessResults={setGuessResults} disabled={ guessResults.length>=NUM_OF_GUESSES_ALLOWED } />
+      <Form setGuess={setGuess} guessResults={guessResults} setGuessResults={setGuessResults} disabled={ resultType } setResultType={setResultType} answer={answer} />
     </>
   );
 }

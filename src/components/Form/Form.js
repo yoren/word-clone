@@ -1,6 +1,7 @@
 import React from "react";
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
-function Form({setGuess, setGuessResults, disabled}) {
+function Form({setGuess, setGuessResults, disabled, guessResults, answer, setResultType}) {
   const [ guessInput, setGuessInput ] = React.useState( "" );
 
   const onSubmitHandler = ( event ) => {
@@ -10,6 +11,13 @@ function Form({setGuess, setGuessResults, disabled}) {
 
     setGuess( guessInput );
     setGuessResults( (currentResults) => { return [...currentResults, guessInput] } );
+
+    if ( guessInput === answer ) {
+      setResultType( 'win' );
+    } else if ( guessResults.length + 1 >= NUM_OF_GUESSES_ALLOWED ) {
+      setResultType( 'lose' );
+    }
+
     setGuessInput('');
   };
 
